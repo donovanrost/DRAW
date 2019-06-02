@@ -79,14 +79,27 @@ class CommentForest {
   /// 5
   ///
   /// Will return the comments in the following order: [1, 5, 2, 4, 3].
+  // List toList() {
+  //   final comments = [];
+  //   final queue = Queue.from(_comments);
+  //   while (queue.isNotEmpty) {
+  //     final comment = queue.removeFirst();
+  //     comments.add(comment);
+  //     if ((comment is! MoreComments) && (comment.replies != null)) {
+  //       queue.addAll(comment.replies._comments);
+  //     }
+  //   }
+  //   return comments;
+  // }
+
   List toList() {
     final comments = [];
-    final queue = Queue.from(_comments);
+    final queue = Queue.from(_comments.reversed);
     while (queue.isNotEmpty) {
-      final comment = queue.removeFirst();
+      final comment = queue.removeLast();
       comments.add(comment);
       if ((comment is! MoreComments) && (comment.replies != null)) {
-        queue.addAll(comment.replies._comments);
+        queue.addAll(comment.replies._comments.reversed);
       }
     }
     return comments;
